@@ -65,7 +65,7 @@ function Game() {
         var _this = this;
 
         $('#game').click(function () {
-            this.end();
+            _this.end();
         });
 
         $('#oscar').css('left', '-200px');
