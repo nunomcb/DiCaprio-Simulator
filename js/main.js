@@ -30,34 +30,42 @@ function Game() {
         }
     };
 
+    this.end = function() {
+        var _this = this;
+
+        $('#game').unbind("click");
+        $('#oscar').stop();
+
+        setTimeout(function () {
+            _this.makeItRight(function() {
+                var score = _this.calculateScore();
+                var msg;
+
+                if (score === 50) {
+                    msg = "So close!";
+                }
+                else {
+                    msg = "Well... you could do better.";
+                }
+
+                $("#overlay").html(
+                    "<p>" +
+                    msg +
+                    "<br>You scored:<br><br>" +
+                    score +
+                    "<br><br>Better luck next time!<br>Click to start again.</p>"
+                );
+
+                $("#overlay").show();
+            });
+        }, 1000);
+    }
+
     this.start = function() {
         var _this = this;
 
         $('#game').click(function () {
-            $('#oscar').stop();
-            setTimeout(function () {
-                _this.makeItRight(function() {
-                    var score = _this.calculateScore();
-                    var msg;
-
-                    if (score === 50) {
-                        msg = "So close!";
-                    }
-                    else {
-                        msg = "Well... you could do better.";
-                    }
-
-                    $("#overlay").html(
-                        "<p>" +
-                        msg +
-                        "<br>You scored:<br><br>" +
-                        score +
-                        "<br><br>Better luck next time!<br>Click to start again.</p>");
-
-                    $("#overlay").show();
-                });
-            }, 1000);
-            $('#game').unbind("click");
+            this.end();
         });
 
         $('#oscar').css('left', '-200px');
