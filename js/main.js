@@ -2,46 +2,52 @@
  * I seriously suck at this
  */
 
-var game = new Game();
+var game = new Game(50, 4500, 2500);
 
 $("#overlay").click(function () {
     $(this).hide();
     game.start();
 })
 
-function Game() {
-    this.oscarPos = 270;
-    this.minDist = 50;
+function Game(minDist, maxSpeed, minSpeed) {
+    var oscarPos = 270;
+    var minDist = minDist;
+    var maxSpeed = maxSpeed;
+    var minSpeed = minSpeed;
 
-    this.getSpeed = function() {
-        return Math.random()  * (4500 - 2500) + 2500;
+    var getSpeed = function() {
+        return Math.random()  * (maxSpeed - minSpeed) + minSpeed;
     };
 
-    this.makeItRight = function(callback) {
+    var makeItRight = function(callback) {
         var currPos = parseInt($('#oscar').css('left'), 10);
-        var dist = this.oscarPos - currPos;
+        var dist = oscarPos - currPos;
         var absDist = Math.abs(dist);
 
-        if (Math.abs(dist) < this.minDist) {
-            $('#oscar').animate({left: currPos + (absDist - this.minDist) * (dist / absDist)}, 1500, callback);
+        if (Math.abs(dist) < minDist) {
+            $('#oscar').animate({left: currPos + (absDist - minDist) * (dist / absDist)}, 1500, callback);
         }
         else {
             callback();
         }
     };
 
-    this.end = function() {
+    var calculateScore = function() {
+        return Math.abs(oscarPos - parseInt($('#oscar').css('left'), 10));
+    };
+
+    var end = function() {
         var _this = this;
 
         $('#game').unbind("click");
         $('#oscar').stop();
 
         setTimeout(function () {
-            _this.makeItRight(function() {
-                var score = _this.calculateScore();
+            makeItRight(function() {
+                var score = calculateScore();
                 var msg;
 
-                if (score === 50) {
+                if (score === minDist) {
                     msg = "So close!";
                 }
                 else {
@@ -65,17 +71,15 @@ function Game() {
         var _this = this;
 
         $('#game').click(function () {
-            _this.end();
+            end();
         });
 
         $('#oscar').css('left', '-200px');
-        $('#oscar').animate({left: '900'}, this.getSpeed(), function () {
+        $('#oscar').animate({left: '900'}, getSpeed(), function () {
             $('#game').unbind("click");
             _this.start();
         });
     };
 
-    this.calculateScore = function() {
-        return Math.abs(this.oscarPos - parseInt($('#oscar').css('left'), 10));
-    };
+
 }
