@@ -14,7 +14,7 @@
         <img id="oscar" src="img/oscar.png">
     </div>
     <div id="overlay"><p>Ever wanted to know how it feels to be DiCaprio himself?<br>Click to start!</p></div>
-    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
