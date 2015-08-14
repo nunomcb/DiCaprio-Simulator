@@ -24,8 +24,18 @@ function Game(minDist, maxSpeed, minSpeed) {
         var dist = oscarPos - currPos;
         var absDist = Math.abs(dist);
 
-        if (Math.abs(dist) < minDist) {
-            $('#oscar').animate({left: currPos + (absDist - minDist) * (dist / absDist)}, 1500, callback);
+        if (absDist < minDist) {
+			var mv;
+
+			if (dist !== 0) {
+				mv = (absDist - minDist) * (dist / absDist);
+			}
+			else {
+				mv = minDist;
+			}
+
+            $('#oscar').animate({left: currPos + mv}, 1500, callback);
+
         }
         else {
             callback();
