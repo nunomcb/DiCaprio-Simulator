@@ -36,7 +36,6 @@ function Game(minDist, maxSpeed, minSpeed) {
             }
 
             $('#oscar').animate({left: currPos + mv}, 1500, callback);
-
         }
         else {
             callback();
