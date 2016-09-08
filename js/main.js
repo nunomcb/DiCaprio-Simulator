@@ -1,5 +1,5 @@
 /**
- * I seriously suck at this
+ * I seriously suck at this #madJavaScriptSkillz
  */
 
 var game = new Game(50, 4500, 2500);
@@ -10,6 +10,7 @@ $("#overlay").click(function () {
 })
 
 function Game(minDist, maxSpeed, minSpeed) {
+    var maxPoints = 500;
     var oscarPos = 270;
     var minDist = minDist;
     var maxSpeed = maxSpeed;
@@ -25,14 +26,14 @@ function Game(minDist, maxSpeed, minSpeed) {
         var absDist = Math.abs(dist);
 
         if (absDist < minDist) {
-			var mv;
+            var mv;
 
-			if (dist !== 0) {
-				mv = (absDist - minDist) * (dist / absDist);
-			}
-			else {
-				mv = minDist;
-			}
+            if (dist !== 0) {
+                mv = (absDist - minDist) * (dist / absDist);
+            }
+            else {
+                mv = minDist;
+            }
 
             $('#oscar').animate({left: currPos + mv}, 1500, callback);
 
@@ -90,6 +91,4 @@ function Game(minDist, maxSpeed, minSpeed) {
             _this.start();
         });
     };
-
-
 }
